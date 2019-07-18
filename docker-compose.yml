@@ -1,0 +1,16 @@
+version: '3.4'
+
+services:
+  csharp_aspnetcore_dockerandsqlserver:
+    image: ${DOCKER_REGISTRY-}csharpaspnetcoredockerandsqlserver
+    build:
+      context: .
+      dockerfile: Dockerfile
+  sqlserverContainer:
+    image: mcr.microsoft.com/mssql/server:2017-latest-ubuntu
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=abc123ABC123
+    ports:
+      - 21433:1433
+
