@@ -25,15 +25,8 @@ namespace CSharp_Aspnetcore_DockerAndSqlServer
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddHealthChecks()
+				//you'll see that if you use this one, it fails even though I have port 1433 set in the connection string.  If you find your IP and replace the name with it, check will change to healthy.  To find IP:
 				.AddSqlServer(_config["connectionStrings:sqlserver"]);
-					//TODO CARLOS - you'll see that if you use this one, it fails even though I have port 1433.  If you find your IP and replace the name with it, check will change to healthy.  To find IP:
-					//> docker network ls
-					//> docker network inspect <your network here - mine is dockercompose9318822996251545401_default>
-					//> find the ip for sqlserverContainer
-					//you can also get into your container to verify ping resolves into the proper IP:
-					//> docker ps
-					//> docker exec -it <your web api container here - mine is ece485c89701> bash
-					//> ping 
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
