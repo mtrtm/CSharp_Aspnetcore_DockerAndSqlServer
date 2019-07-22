@@ -25,7 +25,9 @@ namespace CSharp_Aspnetcore_DockerAndSqlServer
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddHealthChecks()
-				//you'll see that if you use this one, it fails even though I have port 1433 set in the connection string.  If you find your IP and replace the name with it, check will change to healthy.  To find IP:
+				//this health check succeeds, even though the container is named mysqlContainer (UPPERCASE) in the docker-compose.yml and in the connection string in the appsettings.json
+				.AddMySql(_config["connectionStrings:mysql"])
+				//if any CAPITAL characters are used for the sql server server name the health check fails.  Workaround: use lowercase
 				.AddSqlServer(_config["connectionStrings:sqlserver"]);
 		}
 
